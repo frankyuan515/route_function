@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.route_function"
-    compileSdk = 34
+    compileSdk = 34 //original setting is 33
 
     defaultConfig {
         applicationId = "com.example.route_function"
