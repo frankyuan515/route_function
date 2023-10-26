@@ -49,8 +49,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun HarborRoutingScreen() {
-    var startHarbor by remember { mutableStateOf("") }
-    var endHarbor by remember { mutableStateOf("") }
+    var longitude by remember { mutableStateOf("") }
+    var latitude by remember { mutableStateOf("") }
     var displayResults by remember { mutableStateOf(false) }
 
     Box(
@@ -61,28 +61,17 @@ fun HarborRoutingScreen() {
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color.LightGray),
-            //contentAlignment = Alignment.TopCenter
         )
-//        {
-//            Column(
-//                modifier = Modifier.fillMaxWidth(),
-//                horizontalAlignment = Alignment.CenterHorizontally
-//            )
-////            {
-////                Text("Start Harbor: $startHarbor")
-////                Text("End Harbor: $endHarbor")
-////            }
-//        }
 
         if (displayResults) {
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                Text("Result: \nStart Harbor - $startHarbor, \nEnd Harbor - $endHarbor")
+                Text("Result: \nLongitude - $longitude, \nLatitude - $latitude")
             }
         }
-    //}
+        //}
 
         Column(
             modifier = Modifier
@@ -102,35 +91,30 @@ fun HarborRoutingScreen() {
                     .fillMaxWidth()
                     .padding(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ){
+            ) {
+                BasicTextField(
+                    value = longitude,
+                    onValueChange = { text: String -> longitude = text },
+                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .background(Color.LightGray)
+                        .padding(8.dp)
+                )
 
-            BasicTextField(
-                value = startHarbor,
-                onValueChange = { text: String -> startHarbor = text },
-                keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
-//                //keyboardOptions = KeyboardOptions(
-//                    keyboardType = KeyboardType.Number,
-//                    imeAction = ImeAction.Next
-//                    ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-                    .background(Color.LightGray)
-                    .padding(8.dp)
-            )
-
-            BasicTextField(
-                value = endHarbor,
-                onValueChange = { text: String -> endHarbor = text },
-                keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-                    .background(Color.LightGray)
-                    .padding(8.dp)
-            )
+                BasicTextField(
+                    value = latitude,
+                    onValueChange = { text: String -> latitude = text },
+                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .background(Color.LightGray)
+                        .padding(8.dp)
+                )
             }
-
+            // Second Row: Button
             Button(
                 onClick = {
                     displayResults = true
@@ -142,12 +126,13 @@ fun HarborRoutingScreen() {
     }
 }
 
+
 @Preview(showBackground = true)
 @Composable
 fun HarborRoutingScreenPreview() {
     Route_functionTheme {
-        var startHarbor by remember { mutableStateOf("") }
-        var endHarbor by remember { mutableStateOf("") }
+        var longitude by remember { mutableStateOf("") }
+        var latitude by remember { mutableStateOf("") }
         var displayResults by remember { mutableStateOf(false) }
 
         Surface(
