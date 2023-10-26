@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -59,22 +60,29 @@ fun HarborRoutingScreen() {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Gray)
-        ) {
-            Column(
+                .background(Color.LightGray),
+            //contentAlignment = Alignment.TopCenter
+        )
+//        {
+//            Column(
+//                modifier = Modifier.fillMaxWidth(),
+//                horizontalAlignment = Alignment.CenterHorizontally
+//            )
+////            {
+////                Text("Start Harbor: $startHarbor")
+////                Text("End Harbor: $endHarbor")
+////            }
+//        }
+
+        if (displayResults) {
+            Box(
                 modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                contentAlignment = Alignment.Center
             ) {
-                Text("Start Harbor: $startHarbor")
-                Text("End Harbor: $endHarbor")
-
-                if (displayResults) {
-
-
-                    Text("Result: Start Harbor - $startHarbor, End Harbor - $endHarbor")
-                }
+                Text("Result: \nStart Harbor - $startHarbor, \nEnd Harbor - $endHarbor")
             }
         }
+    //}
 
         Column(
             modifier = Modifier
@@ -88,6 +96,14 @@ fun HarborRoutingScreen() {
                 .height(IntrinsicSize.Min),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            // First Row: Input bars side by side
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ){
+
             BasicTextField(
                 value = startHarbor,
                 onValueChange = { text: String -> startHarbor = text },
@@ -98,6 +114,7 @@ fun HarborRoutingScreen() {
 //                    ),
                 modifier = Modifier
                     .fillMaxWidth()
+                    .weight(1f)
                     .background(Color.LightGray)
                     .padding(8.dp)
             )
@@ -108,9 +125,11 @@ fun HarborRoutingScreen() {
                 keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
                 modifier = Modifier
                     .fillMaxWidth()
+                    .weight(1f)
                     .background(Color.LightGray)
                     .padding(8.dp)
             )
+            }
 
             Button(
                 onClick = {
